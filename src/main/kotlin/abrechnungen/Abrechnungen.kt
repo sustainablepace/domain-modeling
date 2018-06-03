@@ -4,6 +4,7 @@ import java.math.BigDecimal
 
 typealias GewinneVerluste = BigDecimal
 typealias Gutschrift = BigDecimal
+typealias Provision = BigDecimal
 typealias Ausführungskurs = BigDecimal
 typealias Abrechnungen = List<Abrechnung>
 typealias Stück = Int
@@ -21,6 +22,7 @@ data class Kauf(
         val ausführungskurs: Ausführungskurs
 ): Abrechnung(datum, wertpapierBezeichnung) {
     val kurswert : Kurswert = -1.times(stück).toBigDecimal().times(ausführungskurs)
+    val provision: Provision = Provision(-10)
 }
 
 data class Verkauf(
@@ -30,6 +32,7 @@ data class Verkauf(
         val ausführungskurs: Ausführungskurs
 ): Abrechnung(datum, wertpapierBezeichnung){
     val kurswert : Kurswert = stück.toBigDecimal().times(ausführungskurs)
+    val provision: Provision = Provision(-10)
 }
 
 data class Dividenden(
@@ -39,10 +42,10 @@ data class Dividenden(
 ): Abrechnung(datum, wertpapierBezeichnung)
 
 fun berechneGewinneVerluste(abrechnungen: Abrechnungen) : GewinneVerluste {
-    return abrechnungen.fold(GewinneVerluste(0) ) { total, abrechnung ->
-        total + when(abrechnung) {
-            is Verkauf -> abrechnung.kurswert
-            is Kauf -> abrechnung.kurswert
+    return abrechnungen.fold(GewinneVerluste(0) ) { gewinneVerluste, abrechnung ->
+        gewinneVerluste + when(abrechnung) {
+            is Verkauf -> abrechnung.kurswert + abrechnung.provision
+            is Kauf -> abrechnung.kurswert + abrechnung.provision
             is Dividenden -> abrechnung.gutschrift
         }
     }

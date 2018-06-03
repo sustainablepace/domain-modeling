@@ -4,9 +4,9 @@ import java.util.*
 
 fun main(args:Array<String>) {
     val abrechnungen: Abrechnungen = listOf(
-            Kauf(Date.from(Instant.now()), "Atlassian", 10, Ausführungskurs(5)),
-            Verkauf(Date.from(Instant.now()), "Atlassian", 5, Ausführungskurs(11)),
-            Dividenden(Date.from(Instant.now()), "Atlassian", Gutschrift(10))
+            Kauf(Date.from(Instant.now()), "Atlassian", 100, Ausführungskurs(6)),
+            Verkauf(Date.from(Instant.now()), "Atlassian", 50, Ausführungskurs(11)),
+            Dividenden(Date.from(Instant.now()), "Atlassian", Gutschrift(80))
     )
 
     val depotwert = berechneGewinneVerluste(abrechnungen)
