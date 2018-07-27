@@ -23,6 +23,11 @@
             <artifactId>arrow-core</artifactId>
             <version>0.7.1</version>
         </dependency>
+        <dependency>
+            <groupId>io.arrow-kt</groupId>
+            <artifactId>arrow-data</artifactId>
+            <version>0.7.1</version>
+        </dependency>
     </dependencies>
 
     <build>
